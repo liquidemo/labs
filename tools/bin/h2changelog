@@ -1,0 +1,7 @@
+#!/bin/bash
+
+dbname=${1:-test}
+
+h2sql $dbname -list << EOF
+  SELECT * FROM databasechangelog;
+EOF
