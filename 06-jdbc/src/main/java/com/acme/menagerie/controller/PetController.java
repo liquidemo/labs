@@ -66,7 +66,7 @@ public class PetController {
     /**
      * Updates an existing pet in the repository.
      */
-    @RequestMapping(method=PUT, value="/{name}", consumes="application/x-www-form-urlencoded")
+    @RequestMapping(method=PUT, value="/{name}")
     public String update(String name, @RequestBody Pet pet, Model model) {
         logger.debug("Received request to update existing pet in database");
         petRepository.update(name, pet);
