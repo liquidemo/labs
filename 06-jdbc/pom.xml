@@ -16,6 +16,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring.version>3.1.0.RELEASE</spring.version>
+    <liquibase.version>2.0.5</liquibase.version>
   </properties>
 
   <scm>
@@ -25,6 +26,7 @@
   </scm>
 
   <dependencies>
+  
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
@@ -34,12 +36,6 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
       <version>${spring.version}</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>commons-logging</artifactId>
-          <groupId>commons-logging</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -59,6 +55,11 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-tx</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
       <version>${spring.version}</version>
     </dependency>
     
@@ -83,16 +84,6 @@
       <artifactId>log4j</artifactId>
       <version>1.2.14</version>
     </dependency>
-    <dependency>
-      <groupId>commons-digester</groupId>
-      <artifactId>commons-digester</artifactId>
-      <version>2.1</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>3.2.1</version>
-    </dependency>    
 
     <dependency>
       <groupId>javax.persistence</groupId>
@@ -118,14 +109,13 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.8.1</version>
+      <version>4.10</version>
     </dependency>
 
-    <!-- Support running liquibase from application. -->
     <dependency>
       <groupId>org.liquibase</groupId>
       <artifactId>liquibase-core</artifactId>
-      <version>2.0.5</version>
+      <version>${liquibase.version}</version>
     </dependency>
 
   </dependencies>
@@ -135,7 +125,7 @@
       <plugin>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-maven-plugin</artifactId>
-        <version>2.0.5</version>
+        <version>${liquibase.version}</version>        
         <configuration>
           <propertyFile>src/main/resources/liquibase.properties</propertyFile>
         </configuration>
@@ -149,6 +139,5 @@
       </plugin>
     </plugins>  
   </build>
-
 
 </project>
