@@ -84,8 +84,8 @@ INFO: Initializing Coyote HTTP/1.1 on http-8080
 May 14, 2012 1:57:47 PM org.apache.coyote.http11.Http11Protocol start
 INFO: Starting Coyote HTTP/1.1 on http-8080
 </pre>
-<p>The web application is available at <code>http://localhost:8080/menagerie</code>.</p>
-<p>The H2 console is available at <code>http://localhost:8082/</code>.</p>
+<p>The web application is available at <a href="http://localhost:8080/menagerie">http://localhost:8080/menagerie</a>.</p>
+<p>The H2 console is available at <a href="http://localhost:8082/">http://localhost:8082/</a>.</p>
 </div>
 </div>
 

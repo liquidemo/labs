@@ -198,6 +198,7 @@ public class TestController {
         @Test
         public void hasProdChangeSets() {
             setProdDataSource(true);
+            assertTableExist("DATABASECHANGELOG");
             Assert.assertTrue("DATABASECHANGELOG is empty", getTableRows("DATABASECHANGELOG") > 0);
         }
         @Test
