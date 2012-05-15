@@ -9,4 +9,7 @@
     <changeSet author="joel" id="PET004:3">
       <renameColumn tableName="PET" oldColumnName="SEX" newColumnName="GENDER" columnDataType="CHAR(1)"/>
     </changeSet>
+    <changeSet author="joel" id="PET004:4">
+      <tagDatabase tag="excercise4"/>
+    </changeSet>    
 </databaseChangeLog>

@@ -37,6 +37,9 @@
     ]]>
     </createView>
   </changeSet>
-
+  
+  <changeSet author="joel" id="PET008:3">
+    <tagDatabase tag="excercise8"/>
+  </changeSet>
 
 </databaseChangeLog>

@@ -19,5 +19,7 @@
     <changeSet author="joel" id="PET006:4">
     <addForeignKeyConstraint constraintName="FK_PET_OWNER" referencedTableName="OWNER" baseColumnNames="OWNER" baseTableName="PET" referencedColumnNames="FIRSTNAME"/>
     </changeSet>
-
+    <changeSet author="joel" id="PET006:5">
+      <tagDatabase tag="excercise6"/>
+    </changeSet>    
 </databaseChangeLog>

@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
-    <changeSet author="joel" id="PET002:1" context="test">
-        <loadData encoding="UTF-8" file="csv/event.csv" quotchar="&quot;" separator="," tableName="EVENT">
-            <column name="NAME" type="STRING"/>
-            <column name="DATE" type="DATE"/>
-            <column name="TYPE" type="STRING"/>
-            <column name="REMARK" type="STRING"/>
-        </loadData>
-    </changeSet>
-    <changeSet author="joel" id="PET002:2" context="test">
-        <loadData encoding="UTF-8" file="csv/pet.csv" quotchar="&quot;" separator="," tableName="PET">
-            <column name="NAME" type="STRING"/>
-            <column name="OWNER" type="STRING"/>
-            <column name="SPECIES" type="STRING"/>
-            <column name="SEX" type="STRING"/>
-            <column name="BIRTH" type="DATE"/>
-            <column name="DEATH" type="DATE"/>
-        </loadData>
+    <changeSet author="joel" id="PET002:1">
+      <preConditions>
+        <tableExists tableName="PET"/>
+        <tableExists tableName="EVENT"/>
+      </preConditions>
+      <tagDatabase tag="excercise2"/>
     </changeSet>
 </databaseChangeLog>

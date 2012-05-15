@@ -39,4 +39,8 @@
     <addForeignKeyConstraint constraintName="FK_EVENT_PET" referencedTableName="PET" baseColumnNames="PETID" baseTableName="EVENT" referencedColumnNames="ID"/>
   </changeSet>
 
+  <changeSet author="joel" id="PET009:7">
+    <tagDatabase tag="excercise9"/>
+  </changeSet>    
+
 </databaseChangeLog>
