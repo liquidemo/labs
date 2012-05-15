@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="joel" id="PET001:1">
+        <createTable tableName="EVENT">
+            <column name="NAME" type="VARCHAR(20)"/>
+            <column name="DATE" type="DATE"/>
+            <column name="TYPE" type="VARCHAR(15)"/>
+            <column name="REMARK" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="joel" id="PET001:2">
+        <createTable tableName="PET">
+            <column name="NAME" type="VARCHAR(20)"/>
+            <column name="OWNER" type="VARCHAR(20)"/>
+            <column name="SPECIES" type="VARCHAR(20)"/>
+            <column name="SEX" type="CHAR(1)"/>
+            <column name="BIRTH" type="DATE"/>
+            <column name="DEATH" type="DATE"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

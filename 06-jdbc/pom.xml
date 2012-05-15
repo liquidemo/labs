@@ -1,16 +1,11 @@
-<project 
-  xmlns="http://maven.apache.org/POM/4.0.0" 
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="
-    http://maven.apache.org/POM/4.0.0
-    http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.acme</groupId>
-  <artifactId>menagerie-jdbc</artifactId>
+  <artifactId>menagerie</artifactId>
   <packaging>war</packaging>
-  <version>1.0.0-SNAPSHOT</version>
-  <name>Menagerie JDBC</name>
+  <version>1.0.2-SNAPSHOT</version>
+  <name>Menagerie</name>
   <url>https://github.com/liquidemo/labs</url>
 
   <properties>
@@ -20,10 +15,19 @@
   </properties>
 
   <scm>
-    <connection>scm:git:/tmp/labs.git</connection>
-    <url>scm:git:/tmp/labs.git</url>
-    <developerConnection>scm:git:/tmp/labs.git</developerConnection>
+    <connection>scm:git:ssh://git@mrflay.org/home/git/menagerie.git</connection>
   </scm>
+
+  <distributionManagement>
+    <repository>
+      <id>releases</id>
+      <url>http://mrflay.org/nexus/content/repositories/releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>snapshots</id>
+      <url>http://mrflay.org/nexus/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
 
   <dependencies>
   
@@ -117,7 +121,22 @@
       <artifactId>liquibase-core</artifactId>
       <version>${liquibase.version}</version>
     </dependency>
-
+    <dependency>    
+      <groupId>net.sourceforge.schemacrawler</groupId>
+      <artifactId>schemacrawler</artifactId>
+      <version>8.15</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity</artifactId>
+      <version>1.7</version>
+    </dependency>
+    <dependency>    
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.2.1</version>
+    </dependency>
+    
   </dependencies>
 
   <build>
@@ -127,7 +146,8 @@
         <artifactId>liquibase-maven-plugin</artifactId>
         <version>${liquibase.version}</version>        
         <configuration>
-          <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+          <propertyFile>liquibase.properties</propertyFile>
+          <changeLogFile>changelog.xml</changeLogFile>
         </configuration>
       </plugin>
       <plugin>
@@ -137,7 +157,35 @@
           <preparationsGoals>clean verify install</preparationsGoals>
         </configuration>
       </plugin>
-    </plugins>  
+      <!-- for convenience, always copy the prod.h2.db to target so -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.5</version>
+        <executions>
+          <execution>
+            <id>resources</id>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <phase>process-resources</phase>
+            <configuration>
+              <outputDirectory>target</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/main/resources</directory>
+                  <filtering>false</filtering>
+                  <includes>
+                    <include>*.h2.db</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+        
+    </plugins>
   </build>
 
 </project>

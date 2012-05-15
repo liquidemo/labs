@@ -7,5 +7,7 @@
       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
   <!-- Add changeset here! -->
-
+  <changeSet id="helloworld" author="bob">
+   <comment>Hello World!</comment>
+  </changeSet>
 </databaseChangeLog>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    
+  <changeSet author="joel" id="PET008:1">
+    <comment>Create V_PETAGE view.</comment>
+    <createView viewName="V_PETAGE">
+    <![CDATA[
+      SELECT name,
+             birth,
+             death,
+             (year(curdate())-year(birth)) AS age 
+      FROM pet
+      ORDER BY age
+    ]]>
+    </createView>
+  </changeSet>
+
+  <changeSet author="joel" id="PET008:2">
+    <comment>Made correction to age calculation for pets that have died.</comment>
+    <dropView viewName="V_PETAGE"/>
+    <createView viewName="V_PETAGE">
+    <![CDATA[
+      SELECT name,
+             birth,
+             death,
+             (year(curdate())-year(birth)) - (right(curdate(),5) < right(birth,5)) AS age 
+      FROM pet
+      WHERE death IS NULL
+      UNION
+      SELECT name,
+             birth,
+             death,
+             (year(death)-year(birth)) - (right(death,5) < right(birth,5)) AS age 
+      FROM pet
+      WHERE death IS NOT NULL
+      ORDER BY age
+    ]]>
+    </createView>
+  </changeSet>
+
+
+</databaseChangeLog>

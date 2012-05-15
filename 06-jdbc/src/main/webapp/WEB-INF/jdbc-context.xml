@@ -12,24 +12,56 @@
 			http://www.springframework.org/schema/context
 			http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-	<context:property-placeholder system-properties-mode="OVERRIDE" location="/WEB-INF/spring.properties" />
+	<context:property-placeholder location="/WEB-INF/jdbc.properties" />
     
     <!-- Enable annotation style of managing transactions -->
 	<tx:annotation-driven transaction-manager="transactionManager" />	
+
+    <!-- Start an embedded H2 database server. -->
+    <bean id="H2TcpServer" 
+          class="org.h2.tools.Server"
+          factory-method="createTcpServer" 
+          init-method="start"
+          destroy-method="stop">
+        <constructor-arg value="-tcp,-tcpAllowOthers,-baseDir,target"/>
+    </bean>
+    
+    <!-- Start an embedded H2 web server. -->
+    <bean id="H2WebServer" 
+          class="org.h2.tools.Server"
+          factory-method="createWebServer"
+          init-method="start">
+        <constructor-arg value="-web,-webAllowOthers,-webPort,8082,-browser" />
+    </bean>
    
 	<!-- Declare a datasource that has pooling capabilities-->	 
 	<bean id="dataSource" 
+          primary="true" 
           class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close"
-		  p:driverClass="${app.jdbc.driverClassName}"
-		  p:jdbcUrl="${app.jdbc.url}"
-		  p:user="${app.jdbc.username}"
-		  p:password="${app.jdbc.password}"
+		  p:driverClass="${jdbc.test.driver}"
+		  p:jdbcUrl="${jdbc.test.url}"
+		  p:user="${jdbc.test.username}"
+		  p:password="${jdbc.test.password}"
 		  p:acquireIncrement="5"
 		  p:idleConnectionTestPeriod="60"
-		  p:maxPoolSize="100"
+		  p:maxPoolSize="5"
 		  p:maxStatements="50"
-		  p:minPoolSize="10"/>
+		  p:minPoolSize="1"/>
+
+    <bean id="prodDataSource" 
+          primary="false" 
+          class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close"
+		  p:driverClass="${jdbc.prod.driver}"
+		  p:jdbcUrl="${jdbc.prod.url}"
+		  p:user="${jdbc.prod.username}"
+		  p:password="${jdbc.prod.password}"
+          p:acquireIncrement="5"
+          p:idleConnectionTestPeriod="60"
+          p:maxPoolSize="5"
+          p:maxStatements="50"
+          p:minPoolSize="1"/>
 
 	<!-- Declare a transaction manager -->
 	<!-- See http://static.springsource.org/spring/docs/3.0.x/spring-framework-reference/html/transaction.html -->
@@ -37,11 +69,14 @@
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager" 
        	  p:dataSource-ref="dataSource" />
 
-    <bean id="liquibase" 
+    <!-- Run liquibase update when the application context is loaded -->
+    <!-- Note that the changelog should include all changesets from external files (liquibase bug) -->
+    <!-- 
+    <bean id="liquibase"
           class="liquibase.integration.spring.SpringLiquibase"
           p:dataSource-ref="dataSource"
           p:changeLog="classpath:changelog.xml"
-          p:contexts="default"
+          p:contexts="default,test"
           p:defaultSchema="public"/>
-
+    -->
 </beans>

@@ -10,9 +10,9 @@
 </head>
 <body>
 
-<h1>Pets</h1>
+<h1>Persons</h1>
 
-<p>You have updated a pet with name ${name} at</p>
+<p>You have edited a person with id ${id} at</p>
 <%= new java.util.Date() %>
 
 </body>

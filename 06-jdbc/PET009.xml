@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+  <changeSet author="joel" id="PET009:1">
+     <dropForeignKeyConstraint baseTableName="EVENT" constraintName="FK_EVENT_PET"/>
+  </changeSet>
+  
+  <changeSet author="joel" id="PET009:2">
+    <dropPrimaryKey tableName="PET"/>
+  </changeSet>
+
+  <!-- mysql -->
+  <!-- 
+  <changeSet author="joel" id="PET009:7">
+     <dropIndex tableName="EVENT" indexName="FK_EVENT_PET"/>
+  </changeSet>
+  <changeSet author="joel" id="PET009:3">
+    <addColumn tableName="PET">
+      <column name="ID"  type="BIGINT" autoIncrement="true"><constraints primaryKey="true"/></column>
+    </addColumn>
+  </changeSet>
+  -->
+  
+  <changeSet author="joel" id="PET009:3">
+    <addColumn tableName="PET">
+      <column name="ID"  type="BIGINT" autoIncrement="true"/>
+    </addColumn>
+  </changeSet>
+
+  <changeSet author="joel" id="PET009:4">
+    <addColumn tableName="EVENT"><column name="PETID" type="BIGINT"/></addColumn>
+  </changeSet>
+
+  <changeSet author="joel" id="PET009:5">
+    <update tableName="EVENT"><column name="PETID" valueComputed="(SELECT ID FROM PET WHERE NAME = PETNAME)"/></update>
+  </changeSet>
+
+  <changeSet author="joel" id="PET009:6">
+    <addForeignKeyConstraint constraintName="FK_EVENT_PET" referencedTableName="PET" baseColumnNames="PETID" baseTableName="EVENT" referencedColumnNames="ID"/>
+  </changeSet>
+
+</databaseChangeLog>

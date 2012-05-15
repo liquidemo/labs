@@ -10,9 +10,9 @@
 </head>
 <body>
 
-<h1>Pets</h1>
+<h1>Persons</h1>
 
-<p>You have added a new pet at</p>
+<p>You have added a new person at</p>
 <%= new java.util.Date() %>
 
 </body>

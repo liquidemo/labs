@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="joel" id="PET004:1">
+      <renameColumn tableName="EVENT" oldColumnName="NAME" newColumnName="PETNAME" columnDataType="VARCHAR(20)"/>
+    </changeSet>
+    <changeSet author="joel" id="PET004:2">
+      <renameColumn tableName="EVENT" oldColumnName="DATE" newColumnName="DATECREATED" columnDataType="DATE"/>
+    </changeSet>
+    <changeSet author="joel" id="PET004:3">
+      <renameColumn tableName="PET" oldColumnName="SEX" newColumnName="GENDER" columnDataType="CHAR(1)"/>
+    </changeSet>
+</databaseChangeLog>

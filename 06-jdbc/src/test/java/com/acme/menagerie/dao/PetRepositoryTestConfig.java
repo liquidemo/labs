@@ -21,7 +21,7 @@ public class PetRepositoryTestConfig {
 
     @Bean
     public PetRepository petRepository() throws Exception {
-        PetRepository petRepository = new PetRepository();
+        JdbcPetRepository petRepository = new JdbcPetRepository();
         petRepository.setDataSource(dataSource());
         return petRepository;
     }
@@ -40,7 +40,7 @@ public class PetRepositoryTestConfig {
         liquibase.setChangeLog("classpath:changelog.xml");
         liquibase.setDataSource(dataSource());
         liquibase.setDropFirst(false);
-        liquibase.setContexts("test");
+        liquibase.setContexts("default");
         return liquibase;
     }
 

@@ -8,24 +8,25 @@
       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
       http://www.liquibase.org/xml/ns/dbchangelog-ext
       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-  
-  <changeSet author="joel" id="PET001:1">
-    <createTable tableName="event">
-      <column name="name" type="VARCHAR(20)" />
-      <column name="date" type="DATE" />
-      <column name="type" type="VARCHAR(15)" />
-      <column name="remark" type="VARCHAR(255)" />
-    </createTable>
-  </changeSet>
-  <changeSet author="joel" id="PET001:2">
-    <createTable tableName="pet">
-      <column name="name" type="VARCHAR(20)" />
-      <column name="owner" type="VARCHAR(20)" />
-      <column name="species" type="VARCHAR(20)" />
-      <column name="sex" type="CHAR(1)" />
-      <column name="birth" type="DATE" />
-      <column name="death" type="DATE" />
-    </createTable>
-  </changeSet>
-
+      
+    <changeSet author="joel" id="PET001:1">
+        <createTable tableName="EVENT">
+            <column name="NAME" type="VARCHAR(20)"/>
+            <column name="DATE" type="DATE"/>
+            <column name="TYPE" type="VARCHAR(15)"/>
+            <column name="REMARK" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    
+    <changeSet author="joel" id="PET001:2">
+        <createTable tableName="PET">
+            <column name="NAME" type="VARCHAR(20)"/>
+            <column name="OWNER" type="VARCHAR(20)"/>
+            <column name="SPECIES" type="VARCHAR(20)"/>
+            <column name="SEX" type="CHAR(1)"/>
+            <column name="BIRTH" type="DATE"/>
+            <column name="DEATH" type="DATE"/>
+        </createTable>
+    </changeSet>
+        
 </databaseChangeLog>

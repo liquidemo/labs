@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="joel" id="PET006:1">
+      <createTable tableName="OWNER">
+      <column name="FIRSTNAME" type="VARCHAR(20)">
+        <constraints nullable="false" primaryKey="true" primaryKeyName="PK_OWNER"/>
+      </column>
+      <column name="LASTNAME" type="VARCHAR(20)"/>
+      <column name="GENDER" type="VARCHAR(1)"/>
+      <column name="EMAIL" type="VARCHAR(30)"/>
+      <column name="ADDRESS" type="VARCHAR(40)"/>
+      </createTable>
+    </changeSet>
+    <changeSet author="joel" id="PET006:3">
+     <sql>
+     INSERT INTO OWNER(FIRSTNAME) SELECT DISTINCT OWNER FROM PET ORDER BY OWNER 
+     </sql>
+    </changeSet>
+    <changeSet author="joel" id="PET006:4">
+    <addForeignKeyConstraint constraintName="FK_PET_OWNER" referencedTableName="OWNER" baseColumnNames="OWNER" baseTableName="PET" referencedColumnNames="FIRSTNAME"/>
+    </changeSet>
+
+</databaseChangeLog>
