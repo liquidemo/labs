@@ -399,12 +399,20 @@ public class TestController {
     
     public static class ExcerciseUpdateProdTest extends AbstractExcerciseTest {
         @Test
+        public void excercise1() {
+        	assertTagExist("excercise1");
+        }
+        @Test
         public void excercise2() {
             setProdDataSource(true);
             assertColumnExist("PET", "ID");
             assertTableRowCount("PET", 9);
             assertTableRowCount("EVENT", 10);
             assertTagExist("excercise2");
+        }
+        @Test
+        public void excercise3() {
+        	assertTagExist("excercise3");
         }
         @Test
         public void excercise4() {
@@ -421,6 +429,10 @@ public class TestController {
             assertTagExist("excercise4");
         }
         @Test
+        public void excercise5() {
+        	assertTagExist("excercise5");
+        }
+        @Test
         public void excercise6() {
             setProdDataSource(true);
             assertColumnExist("OWNER", "FIRSTNAME");
@@ -429,6 +441,26 @@ public class TestController {
             assertColumnExist("OWNER", "EMAIL");
             assertColumnExist("OWNER", "ADDRESS");
             assertTagExist("excercise6");
+        }
+        @Test
+        public void excercise7() {
+        	assertTagExist("excercise7");
+        }
+        @Test
+        public void excercise8() {
+        	assertTagExist("excercise8");
+        }
+        @Test
+        public void excercise9() {
+        	assertTagExist("excercise9");
+        }
+        @Test
+        public void excercise10() {
+        	assertTagExist("excercise10");
+        }
+        @Test
+        public void excercise11() {
+        	assertTagExist("excercise11");
         }
     }    
     
