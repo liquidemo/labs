@@ -27,6 +27,11 @@
     </addColumn>
   </changeSet>
 
+  <changeSet author="joel" id="PET009:8">
+    <dropPrimaryKey tableName="PET"/>
+    <addPrimaryKey tableName="PET" columnNames="ID" constraintName="PK_PET"/>
+  </changeSet>
+
   <changeSet author="joel" id="PET009:4">
     <addColumn tableName="EVENT"><column name="PETID" type="BIGINT"/></addColumn>
   </changeSet>

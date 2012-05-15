@@ -10,7 +10,6 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.Description;
 import org.junit.runner.JUnitCore;
@@ -24,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import schemacrawler.schema.ForeignKey;
 import schemacrawler.schema.PrimaryKey;
 import schemacrawler.schema.Schema;
 
@@ -83,6 +83,7 @@ public class TestController {
                 ExcerciseCreateTableTest.class,
                 ExcerciseViewTest.class,
                 ExcerciseSurrogateKeyTest.class,
+                ExcerciseRollbackTest.class,
                 ExcerciseUpdateProdTest.class
                 ); 
         
@@ -115,11 +116,17 @@ public class TestController {
                 throw new RuntimeException(e);
             }
         }
+        
         protected void assertTableExist(String tableName) {
             Assert.assertNotNull(String.format("%s table does not exist", tableName), schema.getTable(tableName));
         }
         protected void assertTableRowCount(String tableName, int expectedCount) {
             assertTableRowCount(tableName, expectedCount, "");
+        }
+        protected int getTableRows(String tableName) {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+            int count = jdbcTemplate.queryForInt(String.format("SELECT COUNT(*) FROM %s", tableName));
+            return count;
         }
         protected void assertTableRowCount(String tableName, int expectedCount, String where) {
             assertTableExist(tableName);
@@ -130,11 +137,15 @@ public class TestController {
                     expectedCount,
                     actualCount);
         }
-        protected void assertForeignKey(String tableName, String name) {
+        protected void assertForeignKeyExists(String tableName, String name) {
             assertTableExist(tableName);
-            Assert.assertNotNull(
-                    String.format("%s foreign key does not exist", name),
-                    schema.getTable(tableName).getForeignKey(name));
+            ForeignKey[] foreignKeys = schema.getTable(tableName).getForeignKeys();
+            for (ForeignKey foreignKey : foreignKeys) {
+            	if (foreignKey.getName().equals(name)) {
+            		return;
+            	}
+            }
+            Assert.fail(String.format("%s foreign key does not exist", name));
         }
         protected void assertPrimaryKeyExist(String tableName, String name) {
             assertTableExist(tableName);
@@ -187,7 +198,7 @@ public class TestController {
         @Test
         public void hasProdChangeSets() {
             setProdDataSource(true);
-            assertTableRowCount("DATABASECHANGELOG",2,"WHERE ID LIKE 'PET00%:%'");
+            Assert.assertTrue("DATABASECHANGELOG is empty", getTableRows("DATABASECHANGELOG") > 0);
         }
         @Test
         public void hasProdTag() {
@@ -267,7 +278,7 @@ public class TestController {
     public static class ExcerciseConstraintsTest extends AbstractExcerciseTest {
         @Test
         public void hasEventForeignKeys() {
-            assertForeignKeyCount("EVENT", 1);
+            assertForeignKeyExists("EVENT", "FK_EVENT_PET");
         }
         @Test
         public void hasPetPrimaryKeys() {
@@ -298,7 +309,7 @@ public class TestController {
         }
         @Test
         public void hasPetForeignKey() {
-            assertForeignKeyCount("PET", 2);
+        	assertForeignKeyExists("PET", "FK_PET_OWNER");
         }        
         @Test
         public void hasOwnerData() {
@@ -365,10 +376,25 @@ public class TestController {
             assertColumnExist("EVENT", "PETID");
         }
         @Test
+        public void hasEventForeignKeys() {
+            assertForeignKeyExists("EVENT", "FK_EVENT_PET");
+        }
+        @Test
+        public void hasPetPrimaryKeys() {
+            assertPrimaryKeyExist("PET", "PK_PET");
+        }
+        @Test
         public void hasTag() {
             assertTagExist("excercise9");
         }
     }
+    
+    public static class ExcerciseRollbackTest extends AbstractExcerciseTest {
+        @Test
+        public void hasTag() {
+            assertTagExist("excercise10");
+        }
+    }    
     
     public static class ExcerciseUpdateProdTest extends AbstractExcerciseTest {
         @Test

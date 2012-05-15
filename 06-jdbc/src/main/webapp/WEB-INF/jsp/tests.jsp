@@ -448,6 +448,24 @@
 					</tr>
 				</thead>
 				<tbody>
+			<c:forEach items="${results}" var="result">
+			<c:if test="${result.description.testClass.simpleName == 'ExcerciseRollbackTest'}">
+			<c:if test="${not result.passed}">
+				<tr>
+					<td class="outcome-column"><span class="label label-important">FAIL</span></td>
+					<td class="test-column">${result.description.methodName}</td>
+					<td>${result.failure.message}</td>
+				</tr>
+			</c:if>
+			<c:if test="${result.passed}">
+				<tr>
+					<td class="outcome-column"><span class="label label-success">PASS</span></td>
+					<td class="test-column">${result.description.methodName}</td>
+					<td></td>
+				</tr>
+			</c:if>
+			</c:if>
+			</c:forEach>				
 				</tbody>
 				</table>
 			</div>

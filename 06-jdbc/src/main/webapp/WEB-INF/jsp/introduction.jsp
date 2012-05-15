@@ -70,7 +70,11 @@ the command line against a local H2 database.</p>
 <h2>Preparations</h2>
 <p>Add the liquibase and h2 tools to the system path:</p>
 <pre class="prettyprint linenums">
-<b>C:\> set PATH=%PATH%;c:\hicollege\liquibase\labs\tools\bin</b>
+<b>C:\> set PATH=%PATH%;C:\HiCollege\Liquibase\Labs\Tools\Bin</b>
+</pre>
+<p>Change to the HelloWorld directory:</p>
+<pre class="prettyprint linenums">
+<b>C:\> cd C:\HiCollege\Liquibase\Labs\HelloWorld</b>
 </pre>
 <p>Create a liquibase.properties file with the following content:</p>
 <pre class="prettyprint linenums">
